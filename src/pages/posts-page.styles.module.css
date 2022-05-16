@@ -1,3 +1,5 @@
-.heading-ele {
-  color: blue;
+.filter-box {
+  float: right;
+  padding: 6px;
+  font-size: 15px;
 }

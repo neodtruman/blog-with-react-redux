@@ -5,16 +5,17 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      name: 'Neo'
+      firstName: 'Neo',
+      lastName: 'D. Truman'
     }
   }
 
   render() {
     return (
       <div className="App">
-        <p>Hello {this.state.name}</p>
+        <p>Hello {this.state.firstName} {this.state.lastName}</p>
         <button onClick={() => {
-          this.setState({ name: "John" })
+          this.setState({ lastName: "Truman" });
         }}>Change name</button>
       </div>
     );

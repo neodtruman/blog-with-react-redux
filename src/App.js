@@ -1,46 +1,33 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import PostsPage from './pages/posts-page.component';
 import './App.css';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      posts: [],
-      searchString: ''
-    }
-  }
+const App = () => {
+  const [posts, setPosts] = useState([]);
+  const [searchString, setSearchString] = useState('');
 
-  componentDidMount() {
+  useEffect(() => {
     fetch('/posts.json')
       .then(response => response.json())
-      .then(data => this.setState({ posts: data }));
-  };
+      .then(data => setPosts(data));
+  }, []);
 
-  onSearchChangeHandler = (event) => {
-    const searchString = event.target.value.toLocaleLowerCase();
-    this.setState({ searchString });
+  const onSearchChangeHandler = (event) => {
+    const newSearchString = event.target.value.toLocaleLowerCase();
+    setSearchString(newSearchString);
   }
 
-  render() {
-    const filteredPosts = this.state.posts.filter(post => {
-      return post.title.toLocaleLowerCase().includes(this.state.searchString);
-    });
+  console.log('Filtering posts...');
+  const filteredPosts = posts.filter(post => {
+    return post.title.toLocaleLowerCase().includes(searchString);
+  });
 
-    const obj = {
-      name: 'Neo'
-    };
-
-    return (
-      <div className="App">
-        <input type='search' onChange={this.onSearchChangeHandler} />
-        <PostsPage posts={filteredPosts} anObject={obj} >
-          <span>My Post List</span>
-          <span>End of List</span>
-        </PostsPage>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <input type='search' onChange={onSearchChangeHandler} />
+      <PostsPage posts={filteredPosts} />
+    </div>
+  );
 }
 
 export default App;

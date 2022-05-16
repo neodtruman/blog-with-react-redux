@@ -3,20 +3,39 @@ import './App.css';
 
 class App extends Component {
   constructor() {
+    console.log('constructor');
     super();
     this.state = {
-      posts: [
-        { id: '1', title: 'Post 1' },
-        { id: '2', title: 'Post 2' },
-        { id: '3', title: 'Post 3' }
-      ]
+      posts: [],
+      searchString: ''
     }
   }
 
+  componentDidMount() {
+    fetch('/posts.json')
+      .then(response => response.json())
+      .then(data => this.setState({ posts: data }));
+
+    console.log('componentDidMount - state =', this.state);
+  };
+
+  onSearchChangeHandler = (event) => {
+    const searchString = event.target.value.toLocaleLowerCase();
+    this.setState({ searchString });
+  }
+
   render() {
+    console.log('render - state =', this.state);
+
+    const filteredPosts = this.state.posts.filter(post => {
+      return post.title.toLocaleLowerCase().includes(this.state.searchString);
+    });
+    console.log('render - filteredPosts =', filteredPosts);
+
     return (
       <div className="App">
-        {this.state.posts.map(post => <h1 key={post.id}>{post.title}</h1>)}
+        <input type='search' onChange={this.onSearchChangeHandler} />
+        {filteredPosts.map(post => <h1 key={post.slug}>{post.title}</h1>)}
       </div>
     );
   }

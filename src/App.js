@@ -5,23 +5,18 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      firstName: 'Neo',
-      lastName: 'D. Truman'
+      posts: [
+        { id: '1', title: 'Post 1' },
+        { id: '2', title: 'Post 2' },
+        { id: '3', title: 'Post 3' }
+      ]
     }
   }
 
   render() {
     return (
       <div className="App">
-        <p>Hello {this.state.firstName} {this.state.lastName}</p>
-        <button onClick={() => {
-          this.setState(
-            { lastName: "Truman" },
-            () => {
-              console.log(this.state);
-            }
-          )
-        }}>Change name</button>
+        {this.state.posts.map(post => <h1 key={post.id}>{post.title}</h1>)}
       </div>
     );
   }

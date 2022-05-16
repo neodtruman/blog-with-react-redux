@@ -1,11 +1,11 @@
 import { Fragment } from "react";
-import './posts-page.styles.css';
+import classes from './posts-page.styles.module.css';
 
 const PostsPage = (props) => {
   return (
     <Fragment>
       {props.posts.map(post =>
-        <h1 key={post.slug} className="heading-ele">
+        <h1 key={post.slug} className={classes['heading-ele']}>
           {post.title}
         </h1>
       )}

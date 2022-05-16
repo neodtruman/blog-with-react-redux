@@ -1,9 +1,9 @@
 import { Component } from 'react';
+import PostsPage from './pages/posts-page.component';
 import './App.css';
 
 class App extends Component {
   constructor() {
-    console.log('constructor');
     super();
     this.state = {
       posts: [],
@@ -15,8 +15,6 @@ class App extends Component {
     fetch('/posts.json')
       .then(response => response.json())
       .then(data => this.setState({ posts: data }));
-
-    console.log('componentDidMount - state =', this.state);
   };
 
   onSearchChangeHandler = (event) => {
@@ -25,17 +23,21 @@ class App extends Component {
   }
 
   render() {
-    console.log('render - state =', this.state);
-
     const filteredPosts = this.state.posts.filter(post => {
       return post.title.toLocaleLowerCase().includes(this.state.searchString);
     });
-    console.log('render - filteredPosts =', filteredPosts);
+
+    const obj = {
+      name: 'Neo'
+    };
 
     return (
       <div className="App">
         <input type='search' onChange={this.onSearchChangeHandler} />
-        {filteredPosts.map(post => <h1 key={post.slug}>{post.title}</h1>)}
+        <PostsPage posts={filteredPosts} anObject={obj} >
+          <span>My Post List</span>
+          <span>End of List</span>
+        </PostsPage>
       </div>
     );
   }

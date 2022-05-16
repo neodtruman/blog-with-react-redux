@@ -4,6 +4,7 @@ import './App.css';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchString, setSearchString] = useState('');
   const [counter, setCounter] = useState(0);
 
@@ -22,10 +23,13 @@ const App = () => {
     setCounter(counter + 1);
   }
 
-  console.log('Filtering posts...');
-  const filteredPosts = posts.filter(post => {
-    return post.title.toLocaleLowerCase().includes(searchString);
-  });
+  useEffect(() => {
+    console.log('Filtering posts...');
+    const newFilteredPosts = posts.filter(post => {
+      return post.title.toLocaleLowerCase().includes(searchString);
+    });
+    setFilteredPosts(newFilteredPosts);
+  }, [searchString, posts]);
 
   return (
     <div className="App">

@@ -6,7 +6,6 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchString, setSearchString] = useState('');
-  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     fetch('/posts.json')
@@ -19,12 +18,7 @@ const App = () => {
     setSearchString(newSearchString);
   }
 
-  const onButtonClickHandler = () => {
-    setCounter(counter + 1);
-  }
-
   useEffect(() => {
-    console.log('Filtering posts...');
     const newFilteredPosts = posts.filter(post => {
       return post.title.toLocaleLowerCase().includes(searchString);
     });
@@ -33,10 +27,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <div>Counter: {counter}
-        <button onClick={onButtonClickHandler}>Increase Counter</button>
-      </div>
-
+      <h1 className="heading-ele">Welcome to my React app!</h1>
       <input type='search' onChange={onSearchChangeHandler} />
       <PostsPage posts={filteredPosts} />
     </div>

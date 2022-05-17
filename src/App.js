@@ -1,5 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
+
+import { UserContext } from './contexts/user.context';
+import { onAuthStateChangedListener } from "./utils/firebase.utils";
 
 import HomePage from "./pages/home-page.component";
 import PostsPage from './pages/posts-page.component';
@@ -9,6 +12,15 @@ import Navigation from "./components/navigation.component";
 import './App.css';
 
 const App = () => {
+  const { setCurrentUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      setCurrentUser(user);
+    })
+    return unsubscribe;
+  }, []);
+
   return (
     <Fragment>
       <Navigation />

@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/home-page.component";
@@ -10,20 +9,19 @@ import './App.css';
 
 const App = () => {
   return (
-    <Fragment>
-      <Navigation />
-      <Routes>
+    <Routes>
+      <Route path="/" element={<Navigation />} >
         <Route
-          path="/"
+          index
           element={<HomePage />} />
         <Route
-          path="/posts"
+          path="posts"
           element={<PostsPage />} />
         <Route
-          path="/login"
+          path="login"
           element={<LoginPage />} />
-      </Routes>
-    </Fragment>
+      </Route>
+    </Routes>
   );
 }
 

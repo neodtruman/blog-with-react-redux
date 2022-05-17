@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -6,12 +6,12 @@ import { setCurrentUser } from "./store/user/user.action";
 import { onAuthStateChangedListener } from "./utils/firebase.utils";
 
 import HomePage from "./pages/home-page.component";
-import PostsRoutes from './pages/posts-routes.component';
-import LoginPage from "./pages/login-page.component";
-import BookmarksPage from "./pages/bookmarks-page.component";
 import Navigation from "./components/navigation.component";
-
+import PostsRoutes from "./pages/posts-routes.component";
 import './App.css';
+
+const BookmarksPage = lazy(() => import('./pages/bookmarks-page.component'));
+const LoginPage = lazy(() => import('./pages/login-page.component'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const App = () => {
   }, []);
 
   return (
-    <Fragment>
+    <Suspense fallback={<div>Loading...</div>}>
       <Navigation />
       <Routes>
         <Route
@@ -40,7 +40,7 @@ const App = () => {
           path="/bookmarks"
           element={<BookmarksPage />} />
       </Routes>
-    </Fragment>
+    </Suspense>
   );
 }
 

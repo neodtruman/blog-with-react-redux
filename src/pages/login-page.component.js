@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useCallback } from "react";
 import { useDispatch } from "react-redux";
 
 import { setCurrentUser } from "../store/user/user.action";
@@ -7,10 +7,10 @@ import { signInWithGooglePopup } from '../utils/firebase.utils';
 const LoginPage = () => {
   const dispatch = useDispatch();
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = useCallback(async () => {
     const response = await signInWithGooglePopup();
     dispatch(setCurrentUser(response.user));
-  };
+  }, []);
 
   return (
     <Fragment>

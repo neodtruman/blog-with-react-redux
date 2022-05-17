@@ -1,0 +1,36 @@
+.sign-in-wrapper {
+  text-align: center;
+  font-size: 1.2rem;
+}
+.lnk-sign-in {
+  text-decoration: underline;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+}
+.lnk-sign-in:hover {
+  color: #b2adb8;
+}
+
+.comment-wrapper {
+  background-color: #f0f2f5;
+  margin: 20px auto;
+  padding: 8px;
+  position: relative;
+  border-radius: 10px;
+  display: inline-block;
+  min-width: 380px;
+}
+
+.user {
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.comment-date {
+  position: absolute;
+  right: 0;
+  bottom: -1.2rem;
+  font-size: 0.8rem;
+  font-style: italic;
+}

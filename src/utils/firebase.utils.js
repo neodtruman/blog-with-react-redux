@@ -9,7 +9,7 @@ import {
 } from 'firebase/auth';
 
 import {
-  getFirestore, collection, query, where, orderBy, doc, getDoc, getDocs
+  getFirestore, doc, getDoc, getDocs, updateDoc, collection, query, where, orderBy
 } from 'firebase/firestore';
 
 // Please get the firebaseConfig from your own Firebase
@@ -79,5 +79,39 @@ export const getPostById = async (id) => {
   }
   else {
     console.log("No such document!");
+  }
+}
+
+export const addCommentToPost = async (postId, userDisplayName, comment) => {
+  try {
+    const docRef = doc(db, 'posts', postId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const createdAt = new Date();
+      const newComment = {
+        user: userDisplayName,
+        comment,
+        createdAt: createdAt.getTime()
+      };
+      const data = docSnap.get('comments');
+      let newData = null;
+      if (data) {
+        newData = {
+          comments: [...data, newComment]
+        };
+      }
+      else {
+        newData = {
+          comments: [newComment]
+        };
+      }
+      await updateDoc(docRef, newData);
+
+      return newData;
+    }
+  }
+  catch (error) {
+    console.log(error.message || 'Adding comment failed!')
   }
 }

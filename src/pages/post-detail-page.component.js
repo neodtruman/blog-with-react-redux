@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
+import { selectBookmarkItems } from '../store/bookmark/bookmark.selector';
+import { addItemToBookmarks } from '../store/bookmark/bookmark.action';
 import { getPostById } from '../utils/firebase.utils';
 import { fetchData } from '../utils/fetch-data.utils';
 import { getShortDate } from '../utils/datetime.utils';
-import { selectBookmarkItems } from '../store/bookmark/bookmark.selector';
-import { addItemToBookmarks } from '../store/bookmark/bookmark.action';
 
+import Comments from '../components/comment/comments.component';
 import { ReactComponent as BookmarkIcon } from '../assets/icons/bookmark.svg';
 import classes from './post-detail-page.styles.module.css';
 
 function PostDetailPage() {
   const dispatch = useDispatch();
   const { slug } = useParams();
-
   const [postContent, setPostContent] = useState('');
   const [postInfo, setPostInfo] = useState(null);
   const [isPending, setIsPending] = useState(true);
@@ -76,6 +76,7 @@ function PostDetailPage() {
             )
           }
         }}>{postContent}</ReactMarkdown>
+        <Comments comments={postInfo.comments} postId={slug} />
       </Fragment>}
     </Fragment>
   )

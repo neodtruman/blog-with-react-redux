@@ -1,6 +1,8 @@
+import { memo } from 'react';
+
 import classes from './dropdown-item.styles.module.css';
 
-const DropdownItem = ({ bookmarkItem }) => {
+const DropdownItem = memo(({ bookmarkItem }) => {
   const { image, title, date } = bookmarkItem.data;
   const imageUrl = `/images/posts/${bookmarkItem.id}/${image}`;
 
@@ -19,6 +21,6 @@ const DropdownItem = ({ bookmarkItem }) => {
       </div>
     </div>
   );
-};
+});
 
 export default DropdownItem;

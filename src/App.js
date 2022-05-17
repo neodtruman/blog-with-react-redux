@@ -1,7 +1,8 @@
-import { Fragment, useEffect, useContext } from "react";
+import { Fragment, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import { UserContext } from './contexts/user.context';
+import { setCurrentUser } from "./store/user/user.action";
 import { onAuthStateChangedListener } from "./utils/firebase.utils";
 
 import HomePage from "./pages/home-page.component";
@@ -12,11 +13,10 @@ import Navigation from "./components/navigation.component";
 import './App.css';
 
 const App = () => {
-  const { setCurrentUser } = useContext(UserContext);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
-      setCurrentUser(user);
+      dispatch(setCurrentUser(user));
     })
     return unsubscribe;
   }, []);

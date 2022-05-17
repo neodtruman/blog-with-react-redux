@@ -1,17 +1,19 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
-import { UserContext } from '../contexts/user.context';
+import { setCurrentUser } from "../store/user/user.action";
+import { selectCurrentUser } from '../store/user/user.selector';
 import { signOutUser } from '../utils/firebase.utils';
 
 import classes from './navigation.styles.module.css';
 
 const Navigation = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
 
   const signOutHandler = async () => {
     await signOutUser();
-    setCurrentUser(null);
+    dispatch(setCurrentUser(null));
   }
 
   return (

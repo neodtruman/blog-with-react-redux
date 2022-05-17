@@ -1,14 +1,15 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
+import { useDispatch } from "react-redux";
 
+import { setCurrentUser } from "../store/user/user.action";
 import { signInWithGooglePopup } from '../utils/firebase.utils';
-import { UserContext } from "../contexts/user.context";
 
 const LoginPage = () => {
-  const { setCurrentUser } = useContext(UserContext);
+  const dispatch = useDispatch();
 
   const signInWithGoogle = async () => {
     const response = await signInWithGooglePopup();
-    setCurrentUser(response.user);
+    dispatch(setCurrentUser(response.user));
   };
 
   return (

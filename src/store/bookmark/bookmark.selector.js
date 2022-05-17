@@ -1,10 +1,29 @@
-export const selectBookmarkItems = (state) => {
-  console.log('selectBookmarkItems fired')
-  return state.bookmark.bookmarkItems;
-}
+import { createSelector } from "reselect";
 
-export const selectIsBookmarkOpen = (state) => {
-  return state.bookmark.isBookmarkOpen;
-}
+const selectBookmarkItemsReducer = (state) => state.bookmark.bookmarkItems;
 
-export const selectBookmarkCount = (state) => state.bookmark.bookmarkItems.length;
+export const selectBookmarkItems = createSelector(
+  [selectBookmarkItemsReducer],
+  (bookmarkItems) => {
+    console.log('new selectBookmarkItems fired', bookmarkItems)
+    return bookmarkItems;
+  }
+);
+
+const selectIsBookmarkOpenReducer = (state) => state.bookmark.isBookmarkOpen;
+
+export const selectIsBookmarkOpen = createSelector(
+  [selectIsBookmarkOpenReducer],
+  (isBookmarkOpen) => {
+    return isBookmarkOpen;
+  }
+);
+
+const selectBookmarkCountReducer = (state) => state.bookmark.bookmarkItems.length;
+
+export const selectBookmarkCount = createSelector(
+  [selectBookmarkCountReducer],
+  (bookmarkCounter) => {
+    return bookmarkCounter;
+  }
+);

@@ -14,12 +14,12 @@ import {
 
 // Please get the firebaseConfig from your own Firebase
 const firebaseConfig = {
-  apiKey: "Your Api Key",
-  authDomain: "Your Auth Domain",
-  projectId: "Your Project ID",
-  storageBucket: "Your Storage Bucket",
-  messagingSenderId: "Your Message Sender Id",
-  appId: "Your App ID"
+  apiKey: "AIzaSyDxYZO-VS04HLs2Vr0TKRfVUgMTRP8_jew",
+  authDomain: "cool-blog-c4470.firebaseapp.com",
+  projectId: "cool-blog-c4470",
+  storageBucket: "cool-blog-c4470.appspot.com",
+  messagingSenderId: "467955611044",
+  appId: "1:467955611044:web:176c25a2f7e2d057ac3d31"
 };
 ////////////////////////////////////////////////////////
 

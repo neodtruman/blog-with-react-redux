@@ -1,16 +1,15 @@
 import { Fragment, useEffect, useState } from 'react';
+
+import { useFetch } from '../hooks/useFetch';
+
 import classes from './posts-page.styles.module.css';
 
 const PostsPage = () => {
-  const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchString, setSearchString] = useState('');
 
-  useEffect(() => {
-    fetch('/posts.json')
-      .then(response => response.json())
-      .then(data => setPosts(data));
-  }, []);
+  const url = '/posts.json';
+  const { error, isPending, data: postsData } = useFetch(url);
 
   const onSearchChangeHandler = (event) => {
     const newSearchString = event.target.value.toLocaleLowerCase();
@@ -18,11 +17,14 @@ const PostsPage = () => {
   }
 
   useEffect(() => {
-    const newFilteredPosts = posts.filter(post => {
+    if (!postsData) {
+      return;
+    }
+    const newFilteredPosts = postsData.filter(post => {
       return post.title.toLocaleLowerCase().includes(searchString);
     });
     setFilteredPosts(newFilteredPosts);
-  }, [searchString, posts]);
+  }, [searchString, postsData]);
 
   return (
     <Fragment>
@@ -36,7 +38,9 @@ const PostsPage = () => {
         />
       </h1>
 
-      {filteredPosts.map(post =>
+      {isPending && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {postsData && filteredPosts.map(post =>
         <h2 key={post.slug}>{post.title}</h2>
       )}
     </Fragment>

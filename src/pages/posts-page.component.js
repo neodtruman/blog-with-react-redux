@@ -1,15 +1,17 @@
 import { Fragment, useEffect, useState } from 'react';
 
-import { useFetch } from '../hooks/useFetch';
+import { getAllPosts } from '../utils/firebase.utils';
 
+import PostsGrid from '../components/post/posts-grid.component';
 import classes from './posts-page.styles.module.css';
 
 const PostsPage = () => {
+  const [posts, setPosts] = useState([]);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
+
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchString, setSearchString] = useState('');
-
-  const url = '/posts.json';
-  const { error, isPending, data: postsData } = useFetch(url);
 
   const onSearchChangeHandler = (event) => {
     const newSearchString = event.target.value.toLocaleLowerCase();
@@ -17,14 +19,25 @@ const PostsPage = () => {
   }
 
   useEffect(() => {
-    if (!postsData) {
-      return;
-    }
-    const newFilteredPosts = postsData.filter(post => {
-      return post.title.toLocaleLowerCase().includes(searchString);
+    getAllPosts()
+      .then(data => {
+        if (!data || data.length === 0) {
+          setError('Loading data failed!');
+        }
+        else {
+          setPosts(data);
+        }
+      })
+      .catch(err => setError(err.message))
+      .finally(() => setIsPending(false));
+  }, []);
+
+  useEffect(() => {
+    const newFilteredPosts = posts.filter(post => {
+      return post.data.title.toLocaleLowerCase().includes(searchString);
     });
     setFilteredPosts(newFilteredPosts);
-  }, [searchString, postsData]);
+  }, [searchString, posts]);
 
   return (
     <Fragment>
@@ -40,9 +53,7 @@ const PostsPage = () => {
 
       {isPending && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {postsData && filteredPosts.map(post =>
-        <h2 key={post.slug}>{post.title}</h2>
-      )}
+      {posts && <PostsGrid posts={filteredPosts} />}
     </Fragment>
   );
 }

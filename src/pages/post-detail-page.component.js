@@ -1,20 +1,31 @@
 import { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 import { getPostById } from '../utils/firebase.utils';
 import { fetchData } from '../utils/fetch-data.utils';
 import { getShortDate } from '../utils/datetime.utils';
+import { selectBookmarkItems } from '../store/bookmark/bookmark.selector';
+import { addItemToBookmarks } from '../store/bookmark/bookmark.action';
 
+import { ReactComponent as BookmarkIcon } from '../assets/icons/bookmark.svg';
 import classes from './post-detail-page.styles.module.css';
 
 function PostDetailPage() {
+  const dispatch = useDispatch();
   const { slug } = useParams();
 
   const [postContent, setPostContent] = useState('');
   const [postInfo, setPostInfo] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
+
+  const bookmarkItems = useSelector(selectBookmarkItems);
+  const addPostToBookmark = () => dispatch(addItemToBookmarks(bookmarkItems, {
+    data: postInfo,
+    id: slug
+  }));
 
   useEffect(() => {
     const url = `/contents/posts/${slug}.md`;
@@ -42,6 +53,11 @@ function PostDetailPage() {
       {postInfo && <Fragment>
         <h1>
           <span>{postInfo.title}</span>
+          <BookmarkIcon
+            className={classes['bookmark-icon']}
+            title="Bookmark this post"
+            onClick={addPostToBookmark}
+          />
           <div className={classes['post-date']}>
             Posted on {getShortDate(postInfo.date)}
           </div>

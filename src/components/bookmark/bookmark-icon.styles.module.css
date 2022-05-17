@@ -1,0 +1,21 @@
+.icon-container {
+  width: 45px;
+  height: 45px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.counter {
+  position: absolute;
+  font-size: 12px;
+  font-weight: bold;
+  bottom: 18px;
+}

@@ -1,6 +1,7 @@
 .post {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.39);
   text-align: center;
+  position: relative;
 }
 .post a {
   color: black;
@@ -29,4 +30,15 @@
 }
 .content p {
   line-height: 1.5rem;
+}
+
+.remove-bookmark {
+  position: absolute;
+  cursor: pointer;
+  bottom: 0.3rem;
+  right: 0.2rem;
+  width: 26px;
+}
+.remove-bookmark:hover {
+  color: red;
 }

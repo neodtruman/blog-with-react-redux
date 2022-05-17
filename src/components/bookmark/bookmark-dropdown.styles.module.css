@@ -1,0 +1,24 @@
+.bookmark-dropdown-container {
+  position: absolute;
+  width: 280px;
+  height: 340px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid black;
+  background-color: white;
+  top: 90px;
+  right: 40px;
+  z-index: 5;
+}
+
+.bookmark-items {
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.button {
+  margin-top: auto;
+}

@@ -8,6 +8,7 @@ import { onAuthStateChangedListener } from "./utils/firebase.utils";
 import HomePage from "./pages/home-page.component";
 import PostsRoutes from './pages/posts-routes.component';
 import LoginPage from "./pages/login-page.component";
+import BookmarksPage from "./pages/bookmarks-page.component";
 import Navigation from "./components/navigation.component";
 
 import './App.css';
@@ -35,6 +36,9 @@ const App = () => {
         <Route
           path="/login"
           element={<LoginPage />} />
+        <Route
+          path="/bookmarks"
+          element={<BookmarksPage />} />
       </Routes>
     </Fragment>
   );

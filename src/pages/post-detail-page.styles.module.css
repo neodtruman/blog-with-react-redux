@@ -1,0 +1,9 @@
+.post-date {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.image-container {
+  display: block;
+  text-align: center;
+}

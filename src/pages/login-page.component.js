@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useState } from "react";
+import { Fragment, useCallback, useState, useMemo } from "react";
 import { useDispatch } from "react-redux";
 
 import { setCurrentUser } from "../store/user/user.action";
@@ -13,7 +13,9 @@ const LoginPage = () => {
     console.log('doubleCounterOne() called');
     return counterOne * 2;
   }, [counterOne]);
-  const c1x2 = doubleCounterOne();
+
+  const c1x2 = useMemo(() => doubleCounterOne(), [counterOne]);
+
   console.log('counterOne =', c1x2);
 
   const signInWithGoogle = useCallback(async () => {

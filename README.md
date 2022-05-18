@@ -1,10 +1,19 @@
 # Learn React, Redux, Firebase, Markdown, Netlify and more...
 
+This repository is for the book [React for Beginners: An easy-to-follow guide on how to build a real web project in 5 days](https://www.amazon.com/gp/product/B0B1JCCP3S). In this book, you’ll learn:
+
+- Writing a React application (main content)
+- Using Redux for easily scalable state management
+- Using Firebase to authenticate users and store data in a NoSQL database
+- Working with Markdown files
+- Optimizing your React app
+- Finally, building and deploying site’s code on Netlify.
+
 After you york and clone this project, go to the project directory and run `npm install` to download all dependencies.
 
 ## Set your Firebase config
 
-From the branch `7.0`, you should use your own config object getting from the Firebase dashboard. Please follow "Chapter 6. Firebase" to get it.
+From the branch `7.0`, you should use your own config object getting from the Firebase dashboard. Please follow "Chapter 6. Firebase" in the book to get it.
 
 ## Available Scripts
 
